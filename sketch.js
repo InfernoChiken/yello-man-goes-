@@ -9,6 +9,9 @@ const Constraint=Matter.Constraint;
 var treeObj, stoneObj,groundObject;
 var mango1,mango2,mango3,mango4,mango5,mango6,mango7,mango8,mango9,mango10,mango11,mango12;
 var world,boy;
+var slingshot;
+
+var gameState = "onSling";
 
 //Declare launcherObject and launchForce variable here
 
@@ -39,7 +42,8 @@ function setup() {
 
 	treeObj=new tree(1050,580);
 	groundObject=new ground(width/2,600,width,20);
-  //create launcherObject here
+  
+  slingshot = new SlingShot;
 
 
 	Engine.run(engine);
@@ -70,7 +74,7 @@ function draw() {
   stoneObj.display();
   groundObject.display();
   // display launcher object here
-    
+  slingshot.display();
 
 
   detectollision(stoneObj,mango1);
@@ -87,13 +91,25 @@ function draw() {
   detectollision(stoneObj,mango12);
 }
 
-//create mouseDragged function here
+function mouseDragged(){
+    if (gameState!=="launched"){
+        Matter.Body.setPosition(stoneObj.body, {x: mouseX , y: mouseY});
+    }
+}
 
 
-//create mouseReleased function here
+function mouseReleased(){
+    slingshot.fly();
+    gameState = "launched";
+}
 
-
-//create keyPressed function here
+function keyPressed(){
+    if(keyCode === 32){
+       slingshot.attach(stoneObj.body);
+       Matter.Body.setPosition(stoneObj.body, {x: 200, y: 50});
+       gameState = "onSling";
+    }
+}
 
 
   function detectollision(lstone,lmango){
