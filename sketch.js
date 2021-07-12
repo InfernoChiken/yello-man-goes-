@@ -13,8 +13,6 @@ var slingshot;
 
 var gameState = "onSling";
 
-//Declare launcherObject and launchForce variable here
-
 
 function preload(){
 	boy=loadImage("images/boy.png");
@@ -43,7 +41,7 @@ function setup() {
 	treeObj=new tree(1050,580);
 	groundObject=new ground(width/2,600,width,20);
   
-  slingshot = new SlingShot;
+  slingshot = new SlingShot(stoneObj, {x:100, y:300});
 
 
 	Engine.run(engine);
